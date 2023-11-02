@@ -1,17 +1,49 @@
-const getInmuebles = (req, res) => {
-    res.json('GET');
+const inmuebleModel = require('../models/inmueble.model');
+
+const getInmuebles = async (req, res) => {
+    try {
+        const inmuebles = await inmuebleModel.find();
+        res.json(inmuebles);
+
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+
 }
 
-const createInmueble = (req, res) => {
-    res.json('POST');
+const createInmueble = async (req, res) => {
+    try {
+
+        const inmueble = await inmuebleModel.create(req.body);
+
+        res.json(inmueble);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+
 }
 
-const updateInmueble = (req, res) => {
-    res.json('PUT');
+const updateInmueble = async (req, res) => {
+    try {
+        const { idInmueble } = req.params;
+        const result = await inmuebleModel.findByIdAndUpdate(idInmueble, req.body, { new: true });
+        res.json(result);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+
 }
 
-const deleteInmueble = (req, res) => {
-    res.json('DELETE');
+const deleteInmueble = async (req, res) => {
+    try {
+
+        const { idInmueble } = req.params;
+        const result = await inmuebleModel.findByIdAndDelete(idInmueble, req.body);
+        res.json(result);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+
 }
 
 
