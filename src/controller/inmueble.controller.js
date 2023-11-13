@@ -25,6 +25,7 @@ const createInmueble = async (req, res) => {
 
 const updateInmueble = async (req, res) => {
     try {
+
         const { idInmueble } = req.params;
         const result = await inmuebleModel.findByIdAndUpdate(idInmueble, req.body, { new: true });
         res.json(result);
